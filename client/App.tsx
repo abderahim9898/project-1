@@ -30,12 +30,10 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/workforce" element={<Workforce />} />
-              <Route path="/recruitment" element={<Recruitment />} />
               <Route path="/attendance" element={<Attendance />} />
               <Route path="/performance" element={<Performance />} />
               <Route path="/turnover" element={<Turnover />} />
               <Route path="/incidents" element={<Incidents />} />
-              <Route path="/departures" element={<Departures />} />
               <Route path="/sector" element={<Sector />} />
               <Route
                 path="/admin/superadmin"
