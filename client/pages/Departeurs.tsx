@@ -329,23 +329,39 @@ export default function Departeurs() {
                         </td>
                       </tr>
                     ) : (
-                      filteredData.map((record, idx) => (
-                        <tr
-                          key={`${record.qz}-${record.month}-${record.sexo}-${idx}`}
-                          className="border-b border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors"
-                        >
-                          <td className="px-4 py-3 text-gray-900 dark:text-white font-medium">{record.qz}</td>
-                          <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Mois {record.month}</td>
-                          <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{record.sexo}</td>
-                          <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{record.contado}</td>
-                          <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{record.department}</td>
-                          <td className="px-4 py-3 text-right">
-                            <span className="inline-flex items-center justify-center min-w-[2.5rem] px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400 rounded font-semibold">
-                              {record.nbBaja}
-                            </span>
-                          </td>
-                        </tr>
-                      ))
+                      Array.from(sortedAndGroupedData.grouped.entries()).flatMap(([monthKey, monthGroup]) =>
+                        Array.from(monthGroup.entries()).flatMap(([qz, qzGroup]) =>
+                          Array.from(qzGroup.entries()).flatMap(([sexo, records]) => [
+                            <tr key={`month-header-${monthKey}`} className="bg-blue-50 dark:bg-blue-900/20 border-b-2 border-blue-200 dark:border-blue-800">
+                              <td colSpan={6} className="px-4 py-3 font-bold text-blue-900 dark:text-blue-100">
+                                📅 Mois {monthKey}
+                              </td>
+                            </tr>,
+                            <tr key={`qz-header-${monthKey}-${qz}`} className="bg-gray-100 dark:bg-slate-700 border-b border-gray-300 dark:border-slate-600">
+                              <td colSpan={6} className="px-4 py-2 font-semibold text-gray-800 dark:text-gray-200 text-sm">
+                                └─ {qz} | Sexo: {sexo}
+                              </td>
+                            </tr>,
+                            ...records.map((record, idx) => (
+                              <tr
+                                key={`${monthKey}-${qz}-${sexo}-${idx}`}
+                                className="border-b border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors"
+                              >
+                                <td className="px-4 py-3 text-gray-900 dark:text-white font-medium">{record.qz}</td>
+                                <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Mois {record.month}</td>
+                                <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{record.sexo}</td>
+                                <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{record.contado}</td>
+                                <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{record.department}</td>
+                                <td className="px-4 py-3 text-right">
+                                  <span className="inline-flex items-center justify-center min-w-[2.5rem] px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400 rounded font-semibold">
+                                    {record.nbBaja}
+                                  </span>
+                                </td>
+                              </tr>
+                            ))
+                          ])
+                        )
+                      )
                     )}
                   </tbody>
                 </table>
