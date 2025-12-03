@@ -217,7 +217,7 @@ export default function Departures() {
             {/* Table */}
             <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                Données Détaillées du Recrutement
+                Données Détaillées des Départs
               </h2>
 
               <div className="overflow-x-auto">
