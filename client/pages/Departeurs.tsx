@@ -295,6 +295,57 @@ export default function Departeurs() {
               )}
             </div>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
+                <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Total Départs</h3>
+                <p className="text-4xl font-bold text-red-600">{summaryStats.totalDepartures}</p>
+              </div>
+
+              <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
+                <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Moyenne par QZ</h3>
+                <p className="text-4xl font-bold text-blue-600">{summaryStats.avgPerQZ}</p>
+              </div>
+
+              <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
+                <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Moyenne par Mois</h3>
+                <p className="text-4xl font-bold text-green-600">{summaryStats.avgPerMonth}</p>
+              </div>
+
+              <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
+                <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Total Mois</h3>
+                <p className="text-4xl font-bold text-orange-600">{summaryStats.totalMonths}</p>
+              </div>
+
+              <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
+                <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">Départs par Genre</h3>
+                <div className="space-y-2">
+                  {summaryStats.departuresByGender.map(([gender, count]) => (
+                    <div key={gender} className="flex justify-between items-center">
+                      <span className="text-sm text-gray-700 dark:text-gray-300">{gender === "H" ? "Hommes" : "Femmes"}</span>
+                      <span className="font-semibold text-gray-900 dark:text-white">{count}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
+                <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">Départs par Département</h3>
+                <div className="space-y-2 max-h-40 overflow-y-auto">
+                  {summaryStats.departuresByDepartment.slice(0, 5).map(([dept, count]) => (
+                    <div key={dept} className="flex justify-between items-center">
+                      <span className="text-xs text-gray-700 dark:text-gray-300 truncate">{dept}</span>
+                      <span className="font-semibold text-gray-900 dark:text-white text-sm">{count}</span>
+                    </div>
+                  ))}
+                  {summaryStats.departuresByDepartment.length > 5 && (
+                    <div className="text-xs text-gray-500 dark:text-gray-400 pt-2 border-t border-gray-200 dark:border-slate-700">
+                      +{summaryStats.departuresByDepartment.length - 5} autres
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
             <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                 Départs par Mois et QZ
