@@ -330,14 +330,15 @@ export default function Departeurs() {
                       </tr>
                     ) : (() => {
                       const rows: React.ReactNode[] = [];
-                      let monthHeaderRendered = new Set<string>();
+                      let rowIndex = 0;
+                      const monthHeaderRendered = new Set<string>();
 
                       Array.from(sortedAndGroupedData.grouped.entries()).forEach(([monthKey, monthGroup]) => {
                         Array.from(monthGroup.entries()).forEach(([qz, qzGroup]) => {
                           Array.from(qzGroup.entries()).forEach(([sexo, records]) => {
                             if (!monthHeaderRendered.has(monthKey)) {
                               rows.push(
-                                <tr key={`month-header-${monthKey}-${Date.now()}-${Math.random()}`} className="bg-blue-50 dark:bg-blue-900/20 border-b-2 border-blue-200 dark:border-blue-800">
+                                <tr key={`month-${monthKey}-header`} className="bg-blue-50 dark:bg-blue-900/20 border-b-2 border-blue-200 dark:border-blue-800">
                                   <td colSpan={6} className="px-4 py-3 font-bold text-blue-900 dark:text-blue-100">
                                     📅 Mois {monthKey}
                                   </td>
@@ -347,17 +348,17 @@ export default function Departeurs() {
                             }
 
                             rows.push(
-                              <tr key={`qz-header-${monthKey}-${qz}-${sexo}`} className="bg-gray-100 dark:bg-slate-700 border-b border-gray-300 dark:border-slate-600">
+                              <tr key={`qz-${monthKey}-${qz}-${sexo}-header`} className="bg-gray-100 dark:bg-slate-700 border-b border-gray-300 dark:border-slate-600">
                                 <td colSpan={6} className="px-4 py-2 font-semibold text-gray-800 dark:text-gray-200 text-sm">
                                   └─ {qz} | Sexo: {sexo}
                                 </td>
                               </tr>
                             );
 
-                            records.forEach((record, idx) => {
+                            records.forEach((record) => {
                               rows.push(
                                 <tr
-                                  key={`data-${monthKey}-${qz}-${sexo}-${idx}`}
+                                  key={`row-${rowIndex++}`}
                                   className="border-b border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors"
                                 >
                                   <td className="px-4 py-3 text-gray-900 dark:text-white font-medium">{record.qz}</td>
