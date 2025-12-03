@@ -10,44 +10,31 @@ const categories = [
   {
     icon: "👥",
     title: "Structure de la main-d'œuvre et du personnel",
-    
+
     href: "/workforce",
-  },
-  {
-    icon: "📋",
-    title: "Recrutement et intégration",
-    
-    href: "/recruitment",
   },
   {
     icon: "📅",
     title: "Présence et absentéisme",
-    
+
     href: "/attendance",
   },
   {
     icon: "⏱️",
     title: "Heures et performance",
-    
+
     href: "/performance",
   },
   {
     icon: "📊",
     title: "Turnover",
-    
-    href: "/turnover",
-  },
 
-  {
-    icon: "🚪",
-    title: "Suivi des départs ou sorties",
-   
-    href: "/departures",
+    href: "/turnover",
   },
   {
     icon: "🌍",
     title: "Suivi de la main-d'œuvre par secteur",
-    
+
     href: "/sector",
   },
 ];
