@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-interface RecruitmentRecord {
+interface DepartureRecord {
   qz: string;
   month: string | number;
   sexo: string;
@@ -22,13 +22,13 @@ interface MonthData {
 }
 
 export default function Departures() {
-  const [data, setData] = useState<RecruitmentRecord[]>([]);
+  const [data, setData] = useState<DepartureRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [retryKey, setRetryKey] = useState(0);
 
   useEffect(() => {
-    const fetchRecruitmentData = async () => {
+    const fetchDepartureData = async () => {
       try {
         setLoading(true);
         setError(null);
@@ -36,8 +36,8 @@ export default function Departures() {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 60000);
 
-        console.log("Fetching recruitment data...");
-        const response = await fetch("/api/recruitment", {
+        console.log("Fetching departure data...");
+        const response = await fetch("/api/turnover", {
           signal: controller.signal,
           headers: { "Accept": "application/json" },
         });
@@ -45,15 +45,15 @@ export default function Departures() {
         clearTimeout(timeoutId);
 
         if (!response.ok) {
-          throw new Error(`Failed to fetch recruitment data: ${response.status}`);
+          throw new Error(`Failed to fetch departure data: ${response.status}`);
         }
 
         const rawData = await response.json();
-        console.log("Recruitment data received:", rawData);
+        console.log("Departure data received:", rawData);
 
         // Parse the data - assuming format: [headers, [qz, month, sexo, department, nbBaja], ...]
         if (Array.isArray(rawData) && rawData.length > 1) {
-          const processedData: RecruitmentRecord[] = [];
+          const processedData: DepartureRecord[] = [];
 
           for (let i = 1; i < rawData.length; i++) {
             const row = rawData[i];
@@ -78,15 +78,15 @@ export default function Departures() {
             }
           }
 
-          console.log("Processed recruitment records:", processedData.length);
+          console.log("Processed departure records:", processedData.length);
           setData(processedData);
         } else {
-          console.warn("No recruitment data received from server");
+          console.warn("No departure data received from server");
           setData([]);
         }
       } catch (err) {
-        console.error("Error fetching recruitment data:", err);
-        const errorMessage = err instanceof Error ? err.message : "Failed to load recruitment data";
+        console.error("Error fetching departure data:", err);
+        const errorMessage = err instanceof Error ? err.message : "Failed to load departure data";
         setError(errorMessage);
         setData([]);
       } finally {
@@ -94,7 +94,7 @@ export default function Departures() {
       }
     };
 
-    fetchRecruitmentData();
+    fetchDepartureData();
   }, [retryKey]);
 
   // Get unique QZs and months
