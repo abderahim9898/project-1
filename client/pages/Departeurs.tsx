@@ -117,6 +117,43 @@ export default function Departeurs() {
     return Array.from(new Set(filteredData.map((r) => r.qz))).sort();
   }, [filteredData]);
 
+  const sortedAndGroupedData = useMemo(() => {
+    const sorted = [...filteredData].sort((a, b) => {
+      const monthA = parseInt(String(a.month)) || 0;
+      const monthB = parseInt(String(b.month)) || 0;
+      if (monthA !== monthB) return monthA - monthB;
+
+      if (a.qz !== b.qz) return a.qz.localeCompare(b.qz);
+
+      if (a.sexo !== b.sexo) return a.sexo.localeCompare(b.sexo);
+
+      return a.contado.localeCompare(b.contado);
+    });
+
+    const grouped = new Map<string, Map<string, Map<string, DeparteursRecord[]>>>();
+
+    sorted.forEach((record) => {
+      const monthKey = String(record.month);
+      if (!grouped.has(monthKey)) {
+        grouped.set(monthKey, new Map());
+      }
+
+      const monthGroup = grouped.get(monthKey)!;
+      if (!monthGroup.has(record.qz)) {
+        monthGroup.set(record.qz, new Map());
+      }
+
+      const qzGroup = monthGroup.get(record.qz)!;
+      if (!qzGroup.has(record.sexo)) {
+        qzGroup.set(record.sexo, []);
+      }
+
+      qzGroup.get(record.sexo)!.push(record);
+    });
+
+    return { sorted, grouped };
+  }, [filteredData]);
+
   const chartData = useMemo(() => {
     const monthMap = new Map<string | number, MonthData>();
 
