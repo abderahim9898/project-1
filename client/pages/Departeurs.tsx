@@ -25,6 +25,8 @@ export default function Departeurs() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [retryKey, setRetryKey] = useState(0);
+  const [filterDepartment, setFilterDepartment] = useState<string | null>(null);
+  const [filterContrado, setFilterContrado] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchDeparteursData = async () => {
