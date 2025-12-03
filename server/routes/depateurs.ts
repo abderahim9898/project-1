@@ -8,7 +8,7 @@ export const handleDeparteursData: RequestHandler = async (_req, res) => {
     console.log("Request Time:", new Date().toISOString());
 
     const googleScriptUrl =
-      "https://script.google.com/macros/s/AKfycbzZ0hXQqn0Io7kwHky_c73CI3IswwZHY2iz5BtmVFlVCdfaWXbJln6GbEPeVf6NZ4a1/exec";
+      "https://script.google.com/macros/s/AKfycbwDlQe-K91xvcfY-kUiSSs-smxDhKk5eSAEw89cBCZqRbjeTD_Ot3eMlNat0lAYiku9/exec";
     console.log("Fetching from:", googleScriptUrl);
 
     const controller = new AbortController();
