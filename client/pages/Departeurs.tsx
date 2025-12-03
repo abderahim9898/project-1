@@ -128,7 +128,7 @@ export default function Departeurs() {
       monthMap.set(i, monthData);
     }
 
-    data.forEach((record) => {
+    filteredData.forEach((record) => {
       const monthNum = parseInt(String(record.month)) || 0;
       if (monthMap.has(monthNum)) {
         const monthData = monthMap.get(monthNum)!;
@@ -141,7 +141,7 @@ export default function Departeurs() {
       const bMonth = parseInt(String(b.month).replace("Mois ", "")) || 0;
       return aMonth - bMonth;
     });
-  }, [data, uniqueQZs]);
+  }, [filteredData, uniqueQZs]);
 
   const colors = ["#3b82f6", "#ef4444", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899"];
   const qzColors = uniqueQZs.reduce(
