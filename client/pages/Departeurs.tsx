@@ -200,7 +200,22 @@ export default function Departeurs() {
       departuresByDepartment.set(record.department, (departuresByDepartment.get(record.department) || 0) + record.nbBaja);
     });
 
-    const avgPerQZ = uniqueQZs.length > 0 ? Math.round(totalDepartures / uniqueQZs.length) : 0;
+    // Count QZ occurrences per month
+    const qzPerMonth = new Map<string | number, Set<string>>();
+    filteredData.forEach((record) => {
+      if (!qzPerMonth.has(record.month)) {
+        qzPerMonth.set(record.month, new Set());
+      }
+      qzPerMonth.get(record.month)!.add(record.qz);
+    });
+
+    // Calculate average per QZ based on actual QZ occurrences per month
+    let totalQZCount = 0;
+    qzPerMonth.forEach((qzSet) => {
+      totalQZCount += qzSet.size;
+    });
+
+    const avgPerQZ = totalQZCount > 0 ? Math.round(totalDepartures / totalQZCount) : 0;
     const avgPerMonth = uniqueMonths > 0 ? Math.round(totalDepartures / uniqueMonths) : 0;
 
     return {
@@ -211,7 +226,7 @@ export default function Departeurs() {
       departuresByGender: Array.from(departuresByGender.entries()).sort((a, b) => b[1] - a[1]),
       departuresByDepartment: Array.from(departuresByDepartment.entries()).sort((a, b) => b[1] - a[1]),
     };
-  }, [filteredData, uniqueQZs]);
+  }, [filteredData]);
 
   return (
     <Layout>
