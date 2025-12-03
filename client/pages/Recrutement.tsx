@@ -1,4 +1,3 @@
-import CategoryPlaceholder from "@/components/CategoryPlaceholder";
 import { useState, useEffect, useMemo } from "react";
 import Layout from "@/components/Layout";
 import { ArrowLeft, AlertCircle, RotateCcw } from "lucide-react";
@@ -18,10 +17,10 @@ interface RecruitmentRecord {
 
 interface MonthData {
   month: string | number;
-  [key: string]: string | number; // Dynamic QZ bars
+  [key: string]: string | number;
 }
 
-export default function Departures() {
+export default function Recrutement() {
   const [data, setData] = useState<RecruitmentRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -51,7 +50,6 @@ export default function Departures() {
         const rawData = await response.json();
         console.log("Recruitment data received:", rawData);
 
-        // Parse the data - assuming format: [headers, [qz, month, sexo, department, nbBaja], ...]
         if (Array.isArray(rawData) && rawData.length > 1) {
           const processedData: RecruitmentRecord[] = [];
 
@@ -97,22 +95,13 @@ export default function Departures() {
     fetchRecruitmentData();
   }, [retryKey]);
 
-  // Get unique QZs and months
   const uniqueQZs = useMemo(() => {
     return Array.from(new Set(data.map((r) => r.qz))).sort();
   }, [data]);
 
-  const uniqueMonths = useMemo(() => {
-    return Array.from(new Set(data.map((r) => r.month))).sort(
-      (a, b) => (parseInt(String(a)) || 0) - (parseInt(String(b)) || 0)
-    );
-  }, [data]);
-
-  // Prepare chart data - group by month with QZ as bars
   const chartData = useMemo(() => {
     const monthMap = new Map<string | number, MonthData>();
 
-    // Initialize all months with 0 values
     for (let i = 1; i <= 12; i++) {
       const monthData: MonthData = { month: `Mois ${i}` };
       uniqueQZs.forEach((qz) => {
@@ -121,7 +110,6 @@ export default function Departures() {
       monthMap.set(i, monthData);
     }
 
-    // Fill in the data
     data.forEach((record) => {
       const monthNum = parseInt(String(record.month)) || 0;
       if (monthMap.has(monthNum)) {
@@ -137,7 +125,6 @@ export default function Departures() {
     });
   }, [data, uniqueQZs]);
 
-  // Color palette for QZ bars
   const colors = ["#3b82f6", "#ef4444", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899"];
   const qzColors = uniqueQZs.reduce(
     (acc, qz, idx) => {
@@ -155,7 +142,7 @@ export default function Departures() {
             <ArrowLeft size={24} />
           </Link>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            📋 Recrutement et Intégration
+            📋 Recrutement
           </h1>
         </div>
 
@@ -180,7 +167,6 @@ export default function Departures() {
           </Alert>
         ) : (
           <div className="space-y-6">
-            {/* Chart */}
             <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                 Recrutements par Mois et QZ
@@ -214,7 +200,6 @@ export default function Departures() {
               </div>
             </div>
 
-            {/* Table */}
             <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                 Données Détaillées du Recrutement
@@ -229,13 +214,13 @@ export default function Departures() {
                       <th className="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Sexo</th>
                       <th className="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Contrado</th>
                       <th className="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Département</th>
-                      <th className="px-4 py-3 text-right font-semibold text-gray-900 dark:text-white">Nombre Baja</th>
+                      <th className="px-4 py-3 text-right font-semibold text-gray-900 dark:text-white">Nombre</th>
                     </tr>
                   </thead>
                   <tbody>
                     {data.length === 0 ? (
                       <tr>
-                        <td colSpan={5} className="px-4 py-4 text-center text-gray-500 dark:text-gray-400">
+                        <td colSpan={6} className="px-4 py-4 text-center text-gray-500 dark:text-gray-400">
                           Aucune donnée disponible
                         </td>
                       </tr>

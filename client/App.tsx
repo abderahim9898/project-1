@@ -7,12 +7,13 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Workforce from "./pages/Workforce";
-import Recruitment from "./pages/Recruitment";
+import Recrutement from "./pages/Recrutement";
+import Departeurs from "./pages/Departeurs";
+import Effectif from "./pages/Effectif";
 import Attendance from "./pages/Attendance";
 import Performance from "./pages/Performance";
 import Turnover from "./pages/Turnover";
 import Incidents from "./pages/Incidents";
-import Departures from "./pages/Departures";
 import Sector from "./pages/Sector";
 import AdminSuperadmin from "./pages/AdminSuperadmin";
 import AdminPointage from "./pages/AdminPointage";
@@ -32,12 +33,13 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/workforce" element={<Workforce />} />
-              <Route path="/recruitment" element={<Recruitment />} />
+              <Route path="/recrutement" element={<Recrutement />} />
+              <Route path="/departeurs" element={<Departeurs />} />
+              <Route path="/effectif" element={<Effectif />} />
               <Route path="/attendance" element={<Attendance />} />
               <Route path="/performance" element={<Performance />} />
               <Route path="/turnover" element={<Turnover />} />
               <Route path="/incidents" element={<Incidents />} />
-              <Route path="/departures" element={<Departures />} />
               <Route path="/sector" element={<Sector />} />
               <Route
                 path="/admin/superadmin"
