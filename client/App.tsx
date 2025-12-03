@@ -33,6 +33,9 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/workforce" element={<Workforce />} />
+              <Route path="/recrutement" element={<Recrutement />} />
+              <Route path="/departeurs" element={<Departeurs />} />
+              <Route path="/effectif" element={<Effectif />} />
               <Route path="/attendance" element={<Attendance />} />
               <Route path="/performance" element={<Performance />} />
               <Route path="/turnover" element={<Turnover />} />
