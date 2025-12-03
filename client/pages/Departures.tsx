@@ -155,7 +155,7 @@ export default function Departures() {
             <ArrowLeft size={24} />
           </Link>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            📋 Recrutement et Intégration
+            📤 Suivi des Départs ou Sortie
           </h1>
         </div>
 
