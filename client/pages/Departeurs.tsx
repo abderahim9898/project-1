@@ -61,10 +61,10 @@ export default function Departeurs() {
 
             const qz = (row[0] || "").toString().trim();
             const month = row[1] || "";
-            const sexo = (row[2] || "").toString().trim();
-            const department = (row[4] || "").toString().trim();
-            const contado = (row[3] || "").toString().trim();
-            const nbBaja = parseInt(row[5]) || 0;
+            const sexo = (row[23] || "").toString().trim();
+            const department = (row[5] || "").toString().trim();
+            const contado = (row[4] || "").toString().trim();
+            const nbBaja = parseInt(row[6]) || 0;
 
             if (qz && month && department) {
               processedData.push({
