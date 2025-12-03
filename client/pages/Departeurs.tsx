@@ -97,9 +97,25 @@ export default function Departeurs() {
     fetchDeparteursData();
   }, [retryKey]);
 
-  const uniqueQZs = useMemo(() => {
-    return Array.from(new Set(data.map((r) => r.qz))).sort();
+  const uniqueDepartments = useMemo(() => {
+    return Array.from(new Set(data.map((r) => r.department))).sort();
   }, [data]);
+
+  const uniqueContrados = useMemo(() => {
+    return Array.from(new Set(data.map((r) => r.contado))).sort();
+  }, [data]);
+
+  const filteredData = useMemo(() => {
+    return data.filter((record) => {
+      if (filterDepartment && record.department !== filterDepartment) return false;
+      if (filterContrado && record.contado !== filterContrado) return false;
+      return true;
+    });
+  }, [data, filterDepartment, filterContrado]);
+
+  const uniqueQZs = useMemo(() => {
+    return Array.from(new Set(filteredData.map((r) => r.qz))).sort();
+  }, [filteredData]);
 
   const chartData = useMemo(() => {
     const monthMap = new Map<string | number, MonthData>();
