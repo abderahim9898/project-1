@@ -8,6 +8,8 @@ import { handlePerformanceData } from "./routes/performance";
 import { handleTurnoverData } from "./routes/turnover";
 import { handleAdminAuth, handleGoogleSheetsUpload } from "./routes/admin";
 import { handleRecruitmentData } from "./routes/recruitment";
+import { handleDeparteursData } from "./routes/depateurs";
+import { handleEffectifData } from "./routes/effectif";
 
 export function createServer() {
   const app = express();
