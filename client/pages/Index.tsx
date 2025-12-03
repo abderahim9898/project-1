@@ -9,9 +9,21 @@ import { useRef } from "react";
 const categories = [
   {
     icon: "👥",
-    title: "Structure de la main-d'œuvre et du personnel",
+    title: "Effectif",
 
-    href: "/workforce",
+    href: "/effectif",
+  },
+  {
+    icon: "📋",
+    title: "Recrutement",
+
+    href: "/recrutement",
+  },
+  {
+    icon: "📤",
+    title: "Départeurs",
+
+    href: "/departeurs",
   },
   {
     icon: "📅",
