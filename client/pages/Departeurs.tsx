@@ -189,6 +189,30 @@ export default function Departeurs() {
     {} as Record<string, string>
   );
 
+  const summaryStats = useMemo(() => {
+    const totalDepartures = filteredData.reduce((sum, r) => sum + r.nbBaja, 0);
+    const uniqueMonths = new Set(filteredData.map((r) => r.month)).size;
+    const departuresByGender = new Map<string, number>();
+    const departuresByDepartment = new Map<string, number>();
+
+    filteredData.forEach((record) => {
+      departuresByGender.set(record.sexo, (departuresByGender.get(record.sexo) || 0) + record.nbBaja);
+      departuresByDepartment.set(record.department, (departuresByDepartment.get(record.department) || 0) + record.nbBaja);
+    });
+
+    const avgPerQZ = uniqueQZs.length > 0 ? Math.round(totalDepartures / uniqueQZs.length) : 0;
+    const avgPerMonth = uniqueMonths > 0 ? Math.round(totalDepartures / uniqueMonths) : 0;
+
+    return {
+      totalDepartures,
+      avgPerQZ,
+      avgPerMonth,
+      totalMonths: uniqueMonths,
+      departuresByGender: Array.from(departuresByGender.entries()).sort((a, b) => b[1] - a[1]),
+      departuresByDepartment: Array.from(departuresByDepartment.entries()).sort((a, b) => b[1] - a[1]),
+    };
+  }, [filteredData, uniqueQZs]);
+
   return (
     <Layout>
       <div className="space-y-6 p-4 md:p-6">
