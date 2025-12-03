@@ -190,7 +190,7 @@ export default function Departures() {
                   <BarChart data={chartData}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="month" angle={-45} textAnchor="end" height={80} />
-                    <YAxis label={{ value: "Nombre de Recrutements", angle: -90, position: "insideLeft" }} />
+                    <YAxis label={{ value: "Nombre de Départs", angle: -90, position: "insideLeft" }} />
                     <Tooltip
                       contentStyle={{
                         backgroundColor: "rgba(0, 0, 0, 0.8)",
